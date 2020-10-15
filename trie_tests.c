@@ -46,11 +46,12 @@ void print_nodes(struct trie_node *node) {
 
 int main() {
   // TODO: write actual tests
+  const char *cool = "cool";
   struct trie trie = {.root = NULL};
   trie_add_entry(&trie, "can", NULL);
   trie_add_entry(&trie, "canada", NULL);
   trie_add_entry(&trie, "canadian", NULL);
-  trie_add_entry(&trie, "cool", NULL);
+  trie_add_entry(&trie, "cool", (void *)cool);
   trie_add_entry(&trie, "cent", NULL);
   trie_add_entry(&trie, "cell", NULL);
   trie_add_entry(&trie, "ceiling", NULL);
@@ -59,5 +60,8 @@ int main() {
   trie_add_entry(&trie, "smell", NULL);
   trie_add_entry(&trie, "shoe", NULL);
   print_paths(trie.root, 0);
+  struct trie_search_result search = trie_search(&trie, "coo");
+  struct trie_node *bfs = trie_bfs(search.last->down);
+  printf("should print cool: %s\n", (char *)bfs->data);
   trie_dealloc_nodes(&trie.root);
 }
