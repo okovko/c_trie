@@ -52,7 +52,7 @@ struct trie_search_result trie_search(const struct trie *const trie, const char 
       break;
     }
   }
-  return (struct trie_search_result){str, (struct trie_node *)prev};
+  return (struct trie_search_result){(char *)str, (struct trie_node *)prev};
 }
 
 void trie_add_entry(struct trie *const trie, const char *str, void *data) {
@@ -100,4 +100,17 @@ void trie_dealloc_nodes(struct trie_node **const node) {
   }
   free(*node);
   *node = NULL;
+}
+
+struct trie_node *trie_bfs(const struct trie_node *const from) {
+  if (from->data != NULL) {
+    return (struct trie_node *)from;
+  }
+  if (from->next != NULL) {
+    return trie_bfs(from->next);
+  }
+  if (from->down != NULL) {
+    return trie_bfs(from->down);
+  }
+  return NULL; // reach this => ill formed trie
 }

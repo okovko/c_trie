@@ -22,5 +22,6 @@ void trie_level_append_node(const struct trie_node *const level, struct trie_nod
 struct trie_node *trie_level_get_tail(const struct trie_node *const level);
 struct trie_node *trie_make_node(char const letter);
 void trie_dealloc_nodes(struct trie_node **const node);
+struct trie_node *trie_bfs(const struct trie_node *const from);
 
 #endif // __TRIE_H_
