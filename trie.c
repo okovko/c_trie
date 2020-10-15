@@ -55,7 +55,7 @@ struct trie_search_result trie_search(const struct trie *const trie, const char 
   return (struct trie_search_result){(char *)str, (struct trie_node *)prev};
 }
 
-void trie_add_entry(struct trie *const trie, const char *str, void *data) {
+void trie_add_entry(struct trie *const trie, const char *str, const void *const data) {
   // TODO: make less ugly, adding a level should be its own function
   assert(trie != NULL);
   assert(str != NULL);
@@ -84,7 +84,7 @@ void trie_add_entry(struct trie *const trie, const char *str, void *data) {
     node->down = trie_make_node(c);
     node = node->down;
   }
-  node->data = data;
+  node->data = (void *)data;
 }
 
 void trie_dealloc_nodes(struct trie_node **const node) {
